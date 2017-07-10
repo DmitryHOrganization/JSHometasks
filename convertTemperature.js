@@ -1,9 +1,7 @@
 function convertFToC(f) {
-  c=(5*(f-32))/9;
-  return (c);
+  return ((5*(f-32))/9);
 }
 
 function convertCToF(c) {
-   f=(c*9/5)+32;
-  return (f);
+   return ((c*9/5)+32);
 }

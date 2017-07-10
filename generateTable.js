@@ -7,26 +7,33 @@ function generateTable(rows, cols){
     tableEl.style.textAlign='center';
     tableEl.style.verticalAlign='middle';
     const cellStyle = document.querySelector('style');
-    cellStyle.insertAdjacentText('afterBegin', 'th,td{border:1px solid black; height:30px; width:90px} ')
-    let i=1;
-    do {
-        const theadElem=document.createElement('th');
-        theadElem.insertAdjacentText('afterBegin', 'column'+ ' '+i)
-        tableEl.append(theadElem);
-        i++;
+    if(cellStyle === null){
+        tableEl.append(document.createElement('style'));
     }
-    while(i<=cols)
-    for(row=1; row<=rows; row++){
-        const trElem=document.createElement('tr'); //тут мне кажется странным обьявлять внутри цикла константу, но вынести ее нельзя и по логике это именно константа
-        tableEl.append(trElem);
-        // if(row%2==0){ //тут один из не рабочих вариантов попытки покрасить фон четных строк
-        //     trElem.classList.add('.lightBlueBack');
-        //      trElem.style.background='#dfe2e5';
-        // }
-        for(col=1; col<=cols; col++){
-            const tdElem=document.createElement('td');
-            tableEl.append(tdElem);
-            tdElem.insertAdjacentText('afterBegin', row + '.'+ col);
+    cellStyle.insertAdjacentText('afterBegin', 'th,td{border:1px solid black; height:30px; width:90px} tr:nth-child(even) {background-color: #999;}');
+    if(cols<1 || rows<0 || isNaN(rows) || isNaN(cols)){
+        const theadElem=document.createElement('th');
+        theadElem.insertAdjacentText('afterBegin', 'You should use positive integer numbers as parameters values to add a table.');
+        tableEl.append(theadElem);
+    }
+    else{
+        for(var row=0; row<=rows; row++){
+            if(row>0){
+            const trElem=document.createElement('tr'); 
+            tableEl.append(trElem);
+            }
+            for(var col=1; col<=cols; col++){
+                if(row<1){
+                    const theadElem=document.createElement('th');
+                    theadElem.insertAdjacentText('afterBegin', 'column'+ ' '+col);
+                    tableEl.append(theadElem);    
+                }
+                else{
+                    const tdElem=document.createElement('td');
+                    tableEl.append(tdElem);
+                    tdElem.insertAdjacentText('afterBegin', row + '.'+ col);
+                }
+            }
         }
     }
 }
